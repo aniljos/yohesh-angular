@@ -1,0 +1,40 @@
+<h4>Edit Customer: {{customer.id}}</h4>
+
+<!-- FormGroup (group of 2 FormControls(each formControl should have a unique name))-->
+<form #myForm="ngForm">
+  <fieldset>
+    <p>Name</p>
+
+    <div>
+      <!-- FormControl (if the input is using ngModel) -->
+      <input placeholder="Name" [(ngModel)]="temp.name" name="cname" 
+            required minlength="3" #nameCtrl="ngModel" />
+      <span [hidden]="nameCtrl.valid">
+        The field is required with a minlength of 3.
+      </span>
+    </div>
+
+    <p>Location</p>
+
+    <div>
+      <!-- FormControl (if the input is using ngModel) -->
+      <input placeholder="Location" [(ngModel)]="temp.location" name="cloc" 
+                required pattern="[a-zA-Z]{2,}" [forbiddenNames]="['admin', 'mgr', 'anil']" #locCtrl="ngModel"/>
+        <span [hidden]="!locCtrl.hasError('required')">
+          The field is required.
+        </span>
+        <span [hidden]="!locCtrl.hasError('pattern')">
+          Invalid Pattern.
+        </span>  
+        <span [hidden]="!locCtrl.hasError('forbiddenName')">
+          Forbidden Name
+        </span>        
+
+    </div>
+
+    <div>
+      <button (click)="save();" [disabled]="myForm.pristine || myForm.invalid">Save</button>
+      <button (click)="cancel();">Cancel</button>
+    </div>
+  </fieldset>
+</form>

@@ -1,0 +1,60 @@
+<h3>Customers</h3>
+
+<p>
+  <input type="search" placeholder="Search" [(ngModel)]="searchKey"/>
+</p>
+<p *ngIf="searchKey">
+    <strong> Search results for {{searchKey}} </strong>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Customer ID</th>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- for of(ES6) -->
+    <!-- [ngClass]="{oddCls: false, evenCls: true}" -->
+    <tr *ngFor="let cust of data | custFilter : searchKey;index as i; odd as odd; even as even" 
+                [ngClass]="{oddCls: odd, evenCls: even}">
+        <td>{{i}}</td>
+        <td>{{cust.id}}</td>
+        <td>{{cust.name}}</td>
+        <td>{{cust.location}}</td>
+        <td>
+          <a href="" (click)="delete($event, i);">Delete</a>
+          &nbsp;&nbsp;
+          <a href="" (click)="edit($event, cust)">Edit</a>
+          &nbsp;&nbsp;
+          <a routerLink="{{cust.id}}" >View Details</a>
+        </td>
+    </tr>
+    <tr>
+      <td>
+        <button (click)="add();">Save</button>
+      </td>
+      <td>
+        <input type="number" placeholder="ID" [(ngModel)]="nCustomer.id"/>
+      </td>
+      <td>
+        <input placeholder="Name" [(ngModel)]="nCustomer.name"/>
+      </td>
+      <td>
+          <input placeholder="Location" [(ngModel)]="nCustomer.location"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- {{nCustomer | json}}
+{{editableCustomer | json}} -->
+
+<div *ngIf="editableCustomer">
+  <app-edit [customer]="editableCustomer" 
+        (saved)="editComplete($event)" 
+        (cancelled)="editCancelled($event)"></app-edit>
+</div>

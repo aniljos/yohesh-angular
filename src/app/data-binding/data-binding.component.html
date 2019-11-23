@@ -1,0 +1,31 @@
+<h3>Data Binding</h3>
+
+<p>
+    Show/Hide <input type="checkbox" #chkInput [ngModel] />
+    <span>{{chkInput.checked}}</span>
+</p>
+
+<div [hidden]="!chkInput.checked">
+ 
+    <div>
+        Name: {{user.firstName + " " + user.lastName }}
+    </div>
+
+    <div>
+        Count: <input type="number" [value]="count" />
+        <span>{{count}}</span>
+        <div>
+            <button (click)="inc($event);">Inc</button>
+        </div>
+    </div>
+
+    <div>
+        Message: <input [(ngModel)]="message" [ngModelOptions]="{updateOn: 'change'}" #msgInput />
+        <span>{{message}}</span>
+        <span>{{msgInput.value}}</span>
+        <p>
+            Count: <input type="number" [value]="count" (input)="count=$event.target.value" />
+        </p>
+    </div>
+
+</div>

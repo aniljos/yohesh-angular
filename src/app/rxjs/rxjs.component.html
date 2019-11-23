@@ -1,0 +1,15 @@
+<h3>RxJS</h3>
+
+
+<div>
+  Search <input type="search" 
+      placeholder="Search" [formControl]="searchFormControl" />
+</div>
+
+<!-- <div *ngFor="let item of results">
+    <p>{{item}}</p>
+</div> -->
+
+<div *ngFor="let item of resultsObs | async">
+    <p>{{item}}</p>
+</div>
